@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MyApp</title>
+    <script src="/static/main.js"></script>
+</head>
+<body>
+    <h1>Welcome to MyApp</h1>
+    <form id="userForm">
+        <input type="text" id="name" name="name" placeholder="Name" required>
+        <input type="email" id="email" name="email" placeholder="Email" required>
+        <button type="submit">Add User</button>
+    </form>
+    <button onclick="fetchUsers()">Fetch Users</button>
+    <div id="users"></div>
+
+    <form id="mongoForm">
+        <input type="text" id="mongoData" name="data" placeholder="Mongo Data" required>
+        <button type="submit">Add Mongo Data</button>
+    </form>
+    <button onclick="fetchMongo()">Fetch Mongo Data</button>
+    <div id="mongoDataList"></div>
+</body>
+</html>

@@ -1,0 +1,59 @@
+version: '3'
+services:
+  nginx:
+    image: microservices-nginx
+    build: ./Nginx
+    ports: 
+      - 80:80
+    volumes:
+      - ./nginx/templates:/usr/share/nginx/html
+    networks:
+      - app_network
+    depends_on:
+      - app
+
+  app:
+    image: microservices-app
+    build: ./App
+    environment:
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+      MYSQL_DB: my_sql_db
+      MYSQL_HOST: mysql
+      MONGO_URI: mongodb://mongo:27017/my_mongo_db
+    ports:
+      - 8888:8888
+    networks:
+     - app_network
+    depends_on:
+      - mysql
+      - mongodb
+  
+  mysql:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: my_sql_db
+    # ports:
+    #   - "3333:3306"
+  
+  mongodb:
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=pass
+    ports:
+      - 27017:27017
+  
+  mongo-express:
+    image: mongo-express
+    ports:
+      - 8080:8080
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=admin
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=pass
+      - ME_CONFIG_MONGODB_SERVER=mongodb
+
+networks:
+  app_network:
+    driver: bridge
