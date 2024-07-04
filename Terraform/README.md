@@ -9,7 +9,7 @@ Terraform
   3. Initialize: Install the required terraform providers
   4. Plan: Preview the changes terraform will make to the project
   5. Apply: Make changes to the infrastructure
-  
+
 
 Installation commands:
 1. `brew install terraform`
@@ -30,7 +30,7 @@ Resource creation/deletion:
 6. `terraform apply -migrate-state` ——> To refresh state as per updated changes
 7.  `terraform destroy` ——> To destroy resources
 8. `terraform apply -replace aws_instance.mtc_ec2` —> used to replace a resource and the instance name is fetched from `terraform state list`
-9. `terraform apply -var "instance_name=YetAnotherName"` ex: terraform apply -var "aws_instance_name=Dinesh-test"
+9. `terraform apply -var "instance_name=YetAnotherName"` ex: terraform apply -var "aws_instance_name=Dinesh-test" this will apply the value of the variable as Dinesh-test.
 
 State commands:
 1. `terraform state list` ——> To show the list of available states in state file
@@ -45,6 +45,13 @@ General commands:
 2. `-json` - If specified, the outputs are formatted as a JSON object, with a key per output
 3. `terraform output instance_id`
 4. `terraform fmt` ——> it will format the  tf files
+5. `terraform console` ——> This helps us to play with functions, variables and experiment with them before we deploy
+6. `terraform console -var=“host_os=unix”` ——> This will pick up value of a variable named host_os as unix but not the tfvars value or default value
+7. `terraform console -var-file=“<variablefilename>.tfvars”`
+
+Variables:
+* Anywhere we want to use variables then we use `${var.<variable_nme>}`
+
 
   
  
