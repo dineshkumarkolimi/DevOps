@@ -4,11 +4,11 @@ Terraform
 * It tracks configuration with state files
 * Collaborates with the Terraform Cloud or any other cloud provider
 * Steps involved in creating a Terraform lifecycle:
-    Scope - Identify the infrastructure for the project
-    Author - Write configurations to define the infrastructure (.tf files)
-    Initialize - Install the required terraform providers
-    Plan - Preview the changes terraform will make to the project
-    Apply - Make changes to the infrastructure
+  1. Scope - Identify the infrastructure for the project
+  2. Author - Write configurations to define the infrastructure (.tf files)
+  3. Initialize - Install the required terraform providers
+  4. Plan - Preview the changes terraform will make to the project
+  5. Apply - Make changes to the infrastructure
 
 
 Installation commands:
