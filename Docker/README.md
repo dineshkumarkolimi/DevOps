@@ -57,10 +57,10 @@ We might have to use multiple images together to run an application. So, we use 
 Run following commands:
 1. `docker-compose -v` to check if docker-compose is installed or not. If not installed make sure we install it (`pip install -U docker-compose`)
 2. Create a docker compose file: `touch docker-compose.yml`
-3. This files contains following:__
-    *Tabspace* version: ‘3.8’   —> This is always there 
-    &emsp services:    —> This is always there   
-        &emsp &ensp mongodb:   —> Container name      
+3. This files contains following:
+    version: ‘3.8’   —> This is always there  
+    services:    —> This is always there
+      mongodb:   —> Container name      
             &emsp &ensp &ensp build: ./app   —> path for the docker file. We use build incase we dont use prebuild image as below and we want to build our own image    
             &emsp &ensp &ensp image:     —> your image name and version     
             &emsp &ensp &ensp port:        
@@ -79,15 +79,15 @@ Run following commands:
     * Docker for mac creates a Linux VM and all the Docker data is stored in this VM. So to access the VM: `screen ~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/ttyl`. Once we get the terminal of VM we can go to the above specified path    
     
     * Docker compose will take care of creating a common network for these containers
-4. Map the above configuration to the following command:
+5. Map the above configuration to the following command:
     &emsp docker run -d \
         &emsp &ensp--name mongodb \
         &emsp &ensp-p 8000:8080 \
         &emsp &ensp-e ME_MONGO_USERNAME=admin \
         &emsp &ensp--net mongo-network \
         &emsp &enspmongodb:version <imagename goes here>
-5. check the validity of file using the command `docker-compose config`. if you see the file’s content then the file structure is good.
-6. Run the docker-compose file in detached mode by `docker-compose up -d`
-7. To stop everything run `docker-compose down`
-8. Also, we can populate the config by visiting the docker hub and opening the specific image we want to use. Search for docker-compose in the documentation section of that image and use it.
-9. Tips: using scale flag we can scale up or down the application. By running the command `docker-compose up -d —scale database=3` to create 3 containers of database.
+6. check the validity of file using the command `docker-compose config`. if you see the file’s content then the file structure is good.
+7. Run the docker-compose file in detached mode by `docker-compose up -d`
+8. To stop everything run `docker-compose down`
+9. Also, we can populate the config by visiting the docker hub and opening the specific image we want to use. Search for docker-compose in the documentation section of that image and use it.
+10. Tips: using scale flag we can scale up or down the application. By running the command `docker-compose up -d —scale database=3` to create 3 containers of database.
