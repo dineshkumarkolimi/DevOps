@@ -58,34 +58,38 @@ Run following commands:
 1. `docker-compose -v` to check if docker-compose is installed or not. If not installed make sure we install it (`pip install -U docker-compose`)
 2. Create a docker compose file: `touch docker-compose.yml`
 3. This files contains following:
-    version: ‘3.8’   —> This is always there  
-    services:    —> This is always there
-      mongodb:   —> Container name      
-            &emsp &ensp &ensp build: ./app   —> path for the docker file. We use build incase we dont use prebuild image as below and we want to build our own image    
-            &emsp &ensp &ensp image:     —> your image name and version     
-            &emsp &ensp &ensp port:        
-                &emsp &ensp &ensp &ensp - 8000:8080   —> Host:Container, ‘-’ indicates list  
-            &emsp &ensp &ensp environment:    —> environment variables       
-                &emsp &ensp &ensp &ensp - ME_MONGO_USERNAME=admin     
+    ```
+        version: ‘3.8’   —> This is always there  
+        services:    —> This is always there
+            mongodb:   —> Container name      
+            build: ./app   —> path for the docker file. We use build incase we dont use prebuild image as below and we want to build our own image    
+            image:     —> your image name and version     
+            port:        
+                - 8000:8080   —> Host:Container, ‘-’ indicates list  
+            environment:    —> environment variables       
+                - ME_MONGO_USERNAME=admin     
             &emsp &ensp &ensp volumes:       
-                &emsp &ensp &ensp &ensp - db-data: /data/db       —> path of the volume inside of the container eg: mysql - /var/lib/mysql/data, postgres- /var/lib/postgresql/data, mongo - /data/db       
-                &emsp &ensp &ensp &ensp - ./app: /WORKINGDIR/app  —> this will be used in case we are building our own image and if there are any code changes it will pick up automatically.     
-            &emsp &ensp &ensp depends_on:       
-                &emsp &ensp &ensp &ensp - fastapiapp   —> name of the service that it is dependent on mentioned in this file 
-    &emsp volumes:   —> list all the volumes under this section   
-        &emsp &ensp db-data:    --> this is name of the volume     
-            &emsp &ensp &ensp driver: local   —> to create physical storage on a local file system. mac - /var/lib/docker/volumes, linux - /var/lib/docker/volumes, windows - C:\ProgramData\docker\volumes. 
+                - db-data: /data/db       —> path of the volume inside of the container eg: mysql - /var/lib/mysql/data, postgres- /var/lib/postgresql/data, mongo - /data/db       
+                - ./app: /WORKINGDIR/app  —> this will be used in case we are building our own image and if there are any code changes it will pick up automatically.     
+            depends_on:       
+                - fastapiapp   —> name of the service that it is dependent on mentioned in this file 
+        volumes:   —> list all the volumes under this section   
+            db-data:    --> this is name of the volume     
+                driver: local   —> to create physical storage on a local file system. mac - /var/lib/docker/volumes, linux - /var/lib/docker/volumes, windows - C:\ProgramData\docker\volumes. 
+    ```
             
     * Docker for mac creates a Linux VM and all the Docker data is stored in this VM. So to access the VM: `screen ~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/ttyl`. Once we get the terminal of VM we can go to the above specified path    
     
     * Docker compose will take care of creating a common network for these containers
 5. Map the above configuration to the following command:
-    &emsp docker run -d \
-        &emsp &ensp--name mongodb \
-        &emsp &ensp-p 8000:8080 \
-        &emsp &ensp-e ME_MONGO_USERNAME=admin \
-        &emsp &ensp--net mongo-network \
-        &emsp &enspmongodb:version <imagename goes here>
+    ```
+        docker run -d \
+            --name mongodb \
+            -p 8000:8080 \
+            -e ME_MONGO_USERNAME=admin \
+            --net mongo-network \
+            mongodb:version <imagename goes here>
+    ```
 6. check the validity of file using the command `docker-compose config`. if you see the file’s content then the file structure is good.
 7. Run the docker-compose file in detached mode by `docker-compose up -d`
 8. To stop everything run `docker-compose down`
