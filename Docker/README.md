@@ -1,6 +1,6 @@
 # Docker & Docker Compose
 
-Docker Commands by Anna:
+# Docker Commands:
 
 1. docker pull <image name> - to pull image from docker hub
 2. docker ps - to list all containers
@@ -17,7 +17,7 @@ Docker Commands by Anna:
 13. docker-compose -f <yaml-file-name> down -> to remove all the running containers and network too.
 14. docker exec -it <contiainername/id> . -> to enter into the container
 
-To create a network with mongo-db and express:
+# To create a network with mongo-db and express:
 1. docker network ls -> to list the docker networks
 2. docker network create <name> -> to create a new network
 3. docker pull mongo
@@ -25,7 +25,7 @@ To create a network with mongo-db and express:
 5. docker run -d --name <containername> -e MONGO_INITDB_USER_NAME=<username> -e MONGO_INITDB_ROOT_PASSWORD=<password> -p <destinationport>:27017 --net <network-name> mongo
 6. docker run -d --name <containername> -e ME_CONFIG_MONGODB_ADMINUSERNAME=<username> -e ME_CONFIG_MONGODB_ADMINPASSWORD=<password> -e ME_CONFIG_MONGODB_SERVER=<container-name-of-mongodb> -p <destinationport>:8081 --net <network-name> mongo-express
 
-Docker File
+# Docker File
 Blueprint for building an image
 Contents of docker file are as follows:
 1. FROM <baseimage> This is the image on top of which our application/image is built
@@ -36,19 +36,19 @@ Contents of docker file are as follows:
 6. ENTRY POINT [“<filename>”] - using this we can run entire shell script instead of writing all the commands in the docker file
 7. CMD - to run our application EX: CMD [“python”, “/home/app/src/main.py”]
 
-Push Image to Registry:
+# Push Image to Registry:
 1. docker login <respositoryURI/aws command>
 2. docker build -t <image-name>:version
 3. docker tag <image-that-you-want-to-rename>:<tag/version> <registryDomain/imageName:tag> (if we push with out this docker would not know to which repository it has to push)
 4. docker push <name of new image created>:tag
 
-Docker Volumes: using docker volumes we can achieve data persistency. 
+# Docker Volumes: using docker volumes we can achieve data persistency. 
  3 Types of volumes
 1. Host Volume: docker run -v <host directory:container directory> —> you decide where on the host we store the volume
 2.  Container Volumes: Create a volume just by referencing the container directory docker run -v <container directory> —> for each container a folder is generated and gets mounted automatically
 3. Named Volumes: It specifies the name of folder on host Docker run -v <folder-name>:<container-directory>  —> Mostly used volumes
 
-How to write a Docker Compose file?
+# How to write a Docker Compose file?
 
 Docker compose is a tool for defining and running multi-container docker applications. 
 
@@ -58,7 +58,7 @@ Run following commands:
 1. `docker-compose -v` to check if docker-compose is installed or not. If not installed make sure we install it (`pip install -U docker-compose`)
 2. Create a docker compose file: `touch docker-compose.yml`
 3. This files contains following:__
-    &emsp version: ‘3.8’   —> This is always there 
+    *Tabspace* version: ‘3.8’   —> This is always there 
     &emsp services:    —> This is always there   
         &emsp &ensp mongodb:   —> Container name      
             &emsp &ensp &ensp build: ./app   —> path for the docker file. We use build incase we dont use prebuild image as below and we want to build our own image    
